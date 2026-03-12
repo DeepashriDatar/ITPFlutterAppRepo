@@ -95,6 +95,34 @@
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### Mandatory Compliance and Platform Constraints *(mandatory)*
+
+- **MC-001 (Database Connectivity)**: Specifications involving SQL Server MUST
+  define instance, database name, authentication type, encrypted connection
+  requirements (`Encrypt=True`, `TrustServerCertificate=False`), and pooling
+  expectations.
+- **MC-002 (Access Control)**: Specifications MUST define role-based access for
+  `Admin`, `Employee`, and `Auditor` with least-privilege expectations.
+- **MC-003 (Authentication)**: Specifications MUST document Microsoft/Google SSO
+  integration requirements when applicable (`FR-LOGIN-4`, `FR-LOGIN-5`) and
+  password complexity/expiry/reset controls.
+- **MC-004 (Data Integrity and Auditability)**: Specifications MUST identify
+  ACID transaction boundaries and require audit logging for create/update/delete
+  operations.
+- **MC-005 (Compliance Retention)**: Specifications MUST define employee-data
+  retention and deletion windows for GDPR or applicable local regulations.
+- **MC-006 (Schema and Migration)**: Specifications MUST define schema
+  version-locking and require forward + rollback migration strategy.
+- **MC-007 (Performance and Safety Limits)**: Specifications MUST define
+  indexing expectations for key IDs, disallow unbounded queries, require stored
+  procedures for critical operations, and set query execution time caps.
+- **MC-008 (Security and Network Boundaries)**: Specifications MUST require
+  encryption at rest for sensitive fields, TLS 1.2+ in transit, and no direct
+  client-to-SQL access.
+- **MC-009 (Monitoring and Alerts)**: Specifications MUST define logging levels
+  (`INFO`, `WARN`, `ERROR`), SQL health checks, and admin alert triggers for
+  failed logins, overdue tasks, and failed timesheet submissions.
+
 ### Key Entities *(include if feature involves data)*
 
 - **[Entity 1]**: [What it represents, key attributes without implementation]

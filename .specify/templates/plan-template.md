@@ -31,7 +31,28 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- Requirement clarity and scope gate:
+  - Every requirement has explicit acceptance criteria and scope boundaries.
+- Security and access gate:
+  - RBAC roles (`Admin`, `Employee`, `Auditor`) and least-privilege model are
+    defined.
+  - Authentication approach documents SSO requirements (`FR-LOGIN-4`,
+    `FR-LOGIN-5`) and password policy controls.
+- Database and schema gate:
+  - SQL Server connectivity details are explicit (instance, database,
+    authentication type).
+  - Connection security flags are enforced (`Encrypt=True`,
+    `TrustServerCertificate=False`) and pooling strategy is defined.
+  - Schema versioning and migration rollback/forward policy are defined.
+- Data integrity and compliance gate:
+  - ACID guarantees are specified for timesheet, leave, and task operations.
+  - Audit logging coverage for `INSERT`/`UPDATE`/`DELETE` is specified.
+  - Data retention policy for GDPR/local compliance is defined.
+- Performance and observability gate:
+  - Indexing and query-boundary strategy is defined (task/project/timesheet IDs,
+    no unbounded queries, critical stored procedures).
+  - Query timeout/resource limits, logging levels (`INFO`/`WARN`/`ERROR`),
+    health checks, and admin alerts are defined.
 
 ## Project Structure
 
