@@ -1,50 +1,170 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Project Constitution - Non-Negotiables
 
-## Core Principles
+This document outlines the fundamental standards and principles that govern all development and specification work in this project.
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## Non-Negotiable Standards
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### 1. Requirement Clarity and Scope Control
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+- **Every requirement must be explicit and unambiguous**
+	- No implicit assumptions or interpretations
+	- Define boundaries and exclusions clearly
+	- Document assumptions and dependencies
+	- Establish clear acceptance criteria for each requirement
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- **Scope must be controlled and documented**
+	- Clear definition of what is IN scope
+	- Clear definition of what is OUT of scope
+	- Prevent scope creep through explicit scope statements
+	- Track scope changes and impact assessments
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### 2. User Story Format
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- **All features must follow the standard user story format:**
+	```
+	As a [user role/persona]
+	I want to [action/capability]
+	So that [business value/benefit]
+	```
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- **User stories must include:**
+	- Clear user personas or roles
+	- Specific, measurable actions
+	- Defined business or user value
+	- Story points or effort estimates
+	- Priority or MoSCoW classification (Must/Should/Could/Won't)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- **User stories should be:**
+	- Independent and self-contained
+	- Negotiable until commitment
+	- Valuable to end users or business
+	- Estimable by the development team
+	- Small enough to complete in one iteration
+	- Testable with clear pass/fail criteria
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### 3. Acceptance Criteria Standards
+
+- **Every user story must have explicit acceptance criteria**
+	- Criteria must be written before implementation begins
+	- Use Gherkin format (Given/When/Then) where applicable
+	- Criteria must be testable and measurable
+	- Minimum 3-5 acceptance criteria per story
+	- Each criterion must be independent and atomic
+
+- **Acceptance criteria format:**
+	```
+	Given [initial context/state]
+	When [user action or system event]
+	Then [expected outcome/result]
+	```
+
+- **Acceptance criteria must cover:**
+	- Happy path scenarios
+	- Edge cases and boundary conditions
+	- Error conditions and handling
+	- Performance requirements
+	- Security and data protection considerations
+
+### 4. Validation and Error Handling
+
+- **All inputs must be validated**
+	- Validate at the earliest point possible
+	- Provide clear, actionable error messages
+	- Handle edge cases and boundary conditions
+	- Document validation rules explicitly
+
+- **Error handling must be comprehensive**
+	- All error paths must be documented
+	- Error messages must be user-friendly
+	- Technical details logged but not exposed to users
+	- Graceful degradation where applicable
+	- Recovery paths must be defined
+
+- **Data validation rules must include:**
+	- Type validation
+	- Format validation
+	- Range/boundary validation
+	- Business logic validation
+	- Uniqueness and consistency validation
+
+### 5. Non-Functional Requirements
+
+- **Every specification must explicitly define NFRs**
+	- Performance requirements (response times, throughput)
+	- Scalability requirements
+	- Security and compliance requirements
+	- Reliability and availability requirements
+	- Maintainability requirements
+	- Usability and accessibility standards
+
+- **NFRs must be measurable and testable**
+	- Include specific metrics and thresholds
+	- Define how NFRs will be validated
+	- Establish monitoring and alerting criteria
+	- Document trade-offs and rationale
+
+- **Common NFRs to consider:**
+	- Load time requirements
+	- Concurrent user support
+	- Data retention and archival
+	- Encryption and data security
+	- WCAG accessibility compliance
+	- Browser/platform compatibility
+	- Offline functionality
+
+### 6. Traceability and Consistency
+
+- **Full traceability from requirements to implementation**
+	- Each requirement must have a unique identifier
+	- Link features to business objectives
+	- Track requirements through tests to code
+	- Maintain traceability matrix
+	- Document cross-references and dependencies
+
+- **Consistency across all documentation**
+	- Use consistent terminology and naming conventions
+	- Maintain alignment between spec, plan, and implementation
+	- Version all specifications and track changes
+	- Document rationale for decisions and changes
+	- Keep documentation synchronized with code
+
+- **All changes must be traceable**
+	- Documented in spec history
+	- Linked to feature branches
+	- Connected to pull requests and commits
+	- Correlated with work items/tasks
+	- Reviewed and approved before implementation
+
+---
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### When These Standards Apply
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- Creating new features or requirements
+- Modifying existing specifications
+- Planning implementation work
+- Writing acceptance tests
+- Reviewing pull requests
+- Documentation updates
+
+### Enforcement
+
+- Pre-implementation review checklists
+- Automated validation where possible
+- Code review requirements
+- Definition of Done criteria
+- Quality gates before release
+
+### Exceptions
+
+Non-negotiables can only be waived with:
+1. Documented justification
+2. Risk assessment
+3. Stakeholder approval
+4. Clear remediation plan
+
+---
+
+**Last Updated:** March 12, 2026  
+**Status:** Active and Binding
