@@ -119,31 +119,96 @@
 - [ ] T030 Build project list screen in lib/presentation/pages/project/project_list_page.dart
 - [ ] T031 Add project progress visualization in lib/presentation/widgets/project/progress_indicator.dart
 
-## Phase 7: Polish & Cross-Cutting Concerns
+## Phase 7: User Story 5 - Timesheet Management and Submission
+
+**Story Goal**: Allow employees to log and submit hours with a timesheet workflow
+
+**Independent Test Criteria**:
+- User can view weekly timesheet calendar
+- User can log hours for tasks
+- User can submit timesheet
+- User can view submitted timesheets archive
+
+**Implementation Tasks**:
+- [ ] T032 Implement timesheet repository in lib/data/repositories/timesheet_repository_impl.dart
+- [ ] T033 Create timesheet BLoC in lib/presentation/blocs/timesheet/timesheet_bloc.dart
+- [ ] T034 Build timesheet calendar UI in lib/presentation/pages/timesheet/timesheet_page.dart
+- [ ] T035 Add timesheet submission workflow in lib/domain/usecases/submit_timesheet_usecase.dart
+- [ ] T036 Implement timesheet archive and history view in lib/presentation/pages/timesheet/timesheet_history_page.dart
+
+## Phase 8: User Story 6 - Leave Management and Approval Tracking
+
+**Story Goal**: Enable leave requests, balances, and status tracking
+
+**Independent Test Criteria**:
+- User can apply for leave with type and date range
+- User can view leave balances and entitlements
+- User can view leave request status and history
+
+**Implementation Tasks**:
+- [ ] T037 Implement leave repository in lib/data/repositories/leave_repository_impl.dart
+- [ ] T038 Create leave BLoC in lib/presentation/blocs/leave/leave_bloc.dart
+- [ ] T039 Build leave request UI in lib/presentation/pages/leave/leave_request_page.dart
+- [ ] T040 Add leave balance and history UI in lib/presentation/pages/leave/leave_balance_page.dart
+- [ ] T041 Add leave request validation (date range, balance) in lib/domain/usecases/leave_validation_usecase.dart
+
+## Phase 9: User Story 7 - Notifications for Task and Leave Events
+
+**Story Goal**: Keep employees informed with real-time notifications
+
+**Independent Test Criteria**:
+- Notifications are sent for task start/complete and timesheet submission
+- Notifications are sent for leave request status changes
+- Notification preferences are respected
+
+**Implementation Tasks**:
+- [ ] T042 Implement notification repository in lib/data/repositories/notification_repository_impl.dart
+- [ ] T043 Create notification BLoC in lib/presentation/blocs/notification/notification_bloc.dart
+- [ ] T044 Implement push notification service in lib/data/services/notification_service.dart
+- [ ] T045 Build in-app notification center in lib/presentation/pages/notifications/notifications_page.dart
+- [ ] T046 Add notification preference settings in lib/presentation/pages/settings/notification_settings_page.dart
+
+## Phase 10: User Story 8 - Account Settings and Profile Management
+
+**Story Goal**: Allow employees to manage their profile, preferences, and logout
+
+**Independent Test Criteria**:
+- User can view and edit account information
+- User can configure preferences and logout
+- Changes persist across sessions
+
+**Implementation Tasks**:
+- [ ] T047 Implement profile repository in lib/data/repositories/profile_repository_impl.dart
+- [ ] T048 Create settings/profile BLoC in lib/presentation/blocs/settings/settings_bloc.dart
+- [ ] T049 Build settings and profile UI in lib/presentation/pages/settings/settings_page.dart
+- [ ] T050 Add logout flow and session cleanup in lib/core/utils/session_manager.dart
+- [ ] T051 Add settings for notification preferences and private time timer in lib/presentation/pages/settings/settings_page.dart
+
+## Phase 11: Polish & Cross-Cutting Concerns
 
 **Purpose**: Final enhancements and system-wide improvements
 
-- [ ] T032 Implement offline sync mechanism in lib/data/services/sync_service.dart
-- [ ] T033 Add global error handling and user feedback in lib/core/error/error_handler.dart
-- [ ] T034 Polish UI/UX with consistent theming in lib/presentation/theme/app_theme.dart
-- [ ] T035 Implement push notifications for task reminders in lib/data/services/notification_service.dart
-- [ ] T036 Add app settings and preferences in lib/presentation/pages/settings/settings_page.dart
-- [ ] T037 Performance optimization and final testing in various files
+- [ ] T052 Implement offline sync mechanism in lib/data/services/sync_service.dart
+- [ ] T053 Add global error handling and user feedback in lib/core/error/error_handler.dart
+- [ ] T054 Polish UI/UX with consistent theming in lib/presentation/theme/app_theme.dart
+- [ ] T055 Performance optimization and final testing in various files
 
 ## Dependencies
 
 **Story Completion Order**:
 1. US1 (Authentication) - Foundation for all other features
 2. US2, US3, US4 - Can be developed in parallel after US1 completion
+3. US5, US6, US7, US8 - Build on core data models and auth
 
 **Parallel Execution Examples**:
 - **US1**: T010 (repository) and T011 (BLoC) can run in parallel
 - **US2**: T017 (repository) and T019 (UI) can run in parallel  
 - **US3**: T022 (repository) and T024 (UI) can run in parallel
 - **US4**: T028 (repository) and T030 (UI) can run in parallel
+- **US5**: T032 (repository) and T034 (UI) can run in parallel
 
 ## Implementation Strategy
 
 **MVP Scope**: User Story 1 (Authentication) - Provides core value of secure access
-**Incremental Delivery**: Add dashboard, then task management, then projects
+**Incremental Delivery**: Add dashboard, then task management, then projects, then timesheets/leave/notifications
 **Parallel Opportunities**: Within each story, data layer and UI can be developed simultaneously
