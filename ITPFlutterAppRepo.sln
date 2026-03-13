@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InTimeProAPI", "InTimeProAPI\InTimeProAPI.csproj", "{5710C7E9-AD5D-AAE0-3292-8C24808B3B5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5710C7E9-AD5D-AAE0-3292-8C24808B3B5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5710C7E9-AD5D-AAE0-3292-8C24808B3B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5710C7E9-AD5D-AAE0-3292-8C24808B3B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5710C7E9-AD5D-AAE0-3292-8C24808B3B5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C26CBC72-9E05-45EA-A23F-C35EFECACB79}
+	EndGlobalSection
+EndGlobal
