@@ -5,6 +5,7 @@ namespace InTimeProAPI.DTOs;
 // ── Request DTOs ──────────────────────────────────────────────────────────────
 
 public class LoginRequest
+    : IValidatableObject
 {
     [Required, EmailAddress]
     public string Email { get; set; } = string.Empty;
@@ -19,6 +20,32 @@ public class LoginRequest
     public string? SocialToken { get; set; }
 
     public bool RememberMe { get; set; } = false;
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        var provider = Provider.Trim().ToLowerInvariant();
+        var validProvider = provider is "email" or "google" or "microsoft";
+        if (!validProvider)
+        {
+            yield return new ValidationResult(
+                "Provider must be one of email, google, or microsoft.",
+                new[] { nameof(Provider) });
+        }
+
+        if (provider == "email" && string.IsNullOrWhiteSpace(Password))
+        {
+            yield return new ValidationResult(
+                "Password is required for email login.",
+                new[] { nameof(Password) });
+        }
+
+        if ((provider == "google" || provider == "microsoft") && string.IsNullOrWhiteSpace(SocialToken))
+        {
+            yield return new ValidationResult(
+                "SocialToken is required for social login.",
+                new[] { nameof(SocialToken) });
+        }
+    }
 }
 
 public class RefreshTokenRequest
@@ -38,7 +65,9 @@ public class ResetPasswordRequest
     [Required]
     public string Token { get; set; } = string.Empty;
 
-    [Required, MinLength(8)]
+    [Required]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$",
+        ErrorMessage = "Password must be at least 8 characters and include upper, lower, number, and special character.")]
     public string NewPassword { get; set; } = string.Empty;
 }
 

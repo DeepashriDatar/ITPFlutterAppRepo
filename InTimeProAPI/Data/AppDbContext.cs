@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Employee> Employees { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<AuditLogEntry> AuditLogEntries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,6 +29,12 @@ public class AppDbContext : DbContext
               .WithMany(x => x.RefreshTokens)
               .HasForeignKey(x => x.EmployeeId)
               .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<AuditLogEntry>(audit =>
+        {
+            audit.HasIndex(x => x.OccurredAtUtc);
+            audit.HasIndex(x => x.CorrelationId);
         });
 
         // Seed a test employee — password is Test@1234

@@ -34,7 +34,9 @@ public class AuthController : ControllerBase
             return BadRequest(ApiResponse<LoginResponse>.Fail("Validation failed",
                 ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToList()));
 
-        (var employee, var error) = request.Provider switch
+        var provider = request.Provider.Trim().ToLowerInvariant();
+
+        (var employee, var error) = provider switch
         {
             "google" when !string.IsNullOrEmpty(request.SocialToken) =>
                 await _authService.ValidateGoogleTokenAsync(request.SocialToken),
@@ -46,7 +48,12 @@ public class AuthController : ControllerBase
         };
 
         if (employee == null)
+        {
+            if (string.Equals(error, "Account is temporarily locked. Please try again later.", StringComparison.OrdinalIgnoreCase))
+                return StatusCode(StatusCodes.Status423Locked, ApiResponse<LoginResponse>.Fail(error ?? "Account is temporarily locked. Please try again later."));
+
             return Unauthorized(ApiResponse<LoginResponse>.Fail(error ?? "Authentication failed"));
+        }
 
         var accessToken = _tokenService.GenerateAccessToken(employee);
         var refreshToken = _tokenService.GenerateRefreshToken();
@@ -57,7 +64,7 @@ public class AuthController : ControllerBase
                 .GetRequiredService<IConfiguration>()
                 .GetSection("JwtSettings")["AccessTokenExpiryMinutes"] ?? "60");
 
-        _logger.LogInformation("User {Email} logged in via {Provider}", employee.Email, request.Provider);
+        _logger.LogInformation("User {Email} logged in via {Provider}", employee.Email, provider);
 
         return Ok(ApiResponse<LoginResponse>.Ok(new LoginResponse
         {
@@ -117,7 +124,7 @@ public class AuthController : ControllerBase
         if (Guid.TryParse(userIdClaim, out var userId))
             await _tokenService.RevokeRefreshTokenAsync(userId);
 
-        return Ok(ApiResponse<object>.Ok(null, "Logged out successfully"));
+        return Ok(ApiResponse<object>.Ok(new { }, "Logged out successfully"));
     }
 
     /// <summary>Request password reset email</summary>
@@ -132,8 +139,24 @@ public class AuthController : ControllerBase
         // Always return success to prevent email enumeration attacks
         await _authService.ForgotPasswordAsync(request.Email);
 
-        return Ok(ApiResponse<object>.Ok(null,
+        return Ok(ApiResponse<object>.Ok(new { },
             "If this email is registered, a password reset link has been sent."));
+    }
+
+    /// <summary>Reset password using one-time reset token</summary>
+    [HttpPost("reset-password")]
+    [AllowAnonymous]
+    public async Task<ActionResult<ApiResponse<object>>> ResetPassword([FromBody] ResetPasswordRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ApiResponse<object>.Fail("Validation failed",
+                ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToList()));
+
+        var (success, error) = await _authService.ResetPasswordAsync(request.Token, request.NewPassword);
+        if (!success)
+            return BadRequest(ApiResponse<object>.Fail(error ?? "Password reset failed"));
+
+        return Ok(ApiResponse<object>.Ok(new { }, "Password has been reset successfully."));
     }
 
     /// <summary>Get current authenticated user profile</summary>

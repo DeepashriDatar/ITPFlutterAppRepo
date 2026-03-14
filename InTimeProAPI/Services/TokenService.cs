@@ -29,9 +29,13 @@ public class TokenService : ITokenService
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, employee.Id.ToString()),
+            new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, employee.Email),
+            new Claim(ClaimTypes.Email, employee.Email),
             new Claim(JwtRegisteredClaimNames.Name, employee.Name),
+            new Claim(ClaimTypes.Name, employee.Name),
             new Claim("department", employee.Department ?? ""),
+            new Claim(ClaimTypes.Role, employee.Role),
             new Claim("role", employee.Role),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat,

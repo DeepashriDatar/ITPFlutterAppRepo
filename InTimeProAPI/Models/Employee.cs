@@ -31,6 +31,8 @@ public class Employee
     public string AuthProvider { get; set; } = "email"; // email | google | microsoft
 
     public bool IsActive { get; set; } = true;
+    public int FailedLoginCount { get; set; } = 0;
+    public DateTime? LockoutEndUtc { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 

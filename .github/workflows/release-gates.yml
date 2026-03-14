@@ -1,0 +1,24 @@
+name: release-gates
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  sql-connection-gate:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate SQL secure connection settings
+        shell: pwsh
+        run: ./InTimeProAPI/scripts/db/validate-connection.ps1
+
+      - name: Upload gate artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sql-connection-gate
+          path: InTimeProAPI/artifacts/sql-connection-gate.json

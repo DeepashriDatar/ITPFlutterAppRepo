@@ -23,7 +23,15 @@ public class ExceptionMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unhandled exception: {Message}", ex.Message);
+            if (ex is UnauthorizedAccessException)
+            {
+                _logger.LogWarning(ex, "Unauthorized access failure: {Message}", ex.Message);
+            }
+            else
+            {
+                _logger.LogError(ex, "Unhandled exception: {Message}", ex.Message);
+            }
+
             await HandleExceptionAsync(context, ex);
         }
     }
@@ -31,10 +39,17 @@ public class ExceptionMiddleware
     private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
         context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.StatusCode = ex is UnauthorizedAccessException
+            ? (int)HttpStatusCode.Unauthorized
+            : (int)HttpStatusCode.InternalServerError;
+
+        var correlationId = context.Request.Headers[CorrelationIdMiddleware.HeaderName].FirstOrDefault();
 
         var response = ApiResponse<object>.Fail(
-            "An unexpected error occurred. Please try again.");
+            "An unexpected error occurred. Please try again.",
+            string.IsNullOrWhiteSpace(correlationId)
+                ? null
+                : new List<string> { $"correlationId:{correlationId}" });
 
         await context.Response.WriteAsync(
             JsonSerializer.Serialize(response, new JsonSerializerOptions

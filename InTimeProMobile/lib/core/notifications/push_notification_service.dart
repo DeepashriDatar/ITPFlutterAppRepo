@@ -1,0 +1,3 @@
+class PushNotificationService {
+  const PushNotificationService();
+}

@@ -1,0 +1,36 @@
+# Universal
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# IDE
+.vscode/
+.idea/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+packages/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+ios/Pods/
+ios/.symlinks/
+android/.gradle/
+
+# Node
+node_modules/
+
+# Logs and env
+*.log
+.env
+.env.*

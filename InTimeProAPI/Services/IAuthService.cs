@@ -10,6 +10,7 @@ public interface IAuthService
     Task<(Employee? employee, string? error)> ValidateMicrosoftTokenAsync(string microsoftToken);
     Task<Employee?> GetByIdAsync(Guid id);
     Task<bool> ForgotPasswordAsync(string email);
+    Task<(bool success, string? error)> ResetPasswordAsync(string token, string newPassword);
 }
 
 public interface ITokenService

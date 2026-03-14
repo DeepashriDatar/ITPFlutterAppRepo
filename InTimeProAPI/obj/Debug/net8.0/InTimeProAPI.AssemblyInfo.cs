@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InTimeProAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f64eb56e9813c6ebce6fb9f118ff46b7cd5cdfd3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5b0ebb0a80076e6ff495808a42c8dc8e6d70d6d")]
 [assembly: System.Reflection.AssemblyProductAttribute("InTimeProAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InTimeProAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
