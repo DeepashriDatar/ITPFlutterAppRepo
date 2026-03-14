@@ -130,6 +130,20 @@
 - [ ] T036 Add app settings and preferences in lib/presentation/pages/settings/settings_page.dart
 - [ ] T037 Performance optimization and final testing in various files
 
+## Phase 8: Backend API for Flutter Integration (.NET 4.8)
+
+**Purpose**: Provide a working backend API for the Flutter app with auth and employee endpoints
+
+- [X] T038 Create backend solution and project structure in backend/InTimePro/InTimePro.sln and backend/InTimePro/src/InTimePro.Api/
+- [X] T039 Configure .NET Framework 4.8 API project with required packages in backend/InTimePro/src/InTimePro.Api/InTimePro.Api.csproj
+- [X] T040 Implement Auth DTOs and token DTOs in backend/InTimePro/src/InTimePro.Api/Dtos/
+- [X] T041 Implement Employee and refresh token models in backend/InTimePro/src/InTimePro.Api/Models/
+- [X] T042 Implement login/refresh/logout service logic with provider handling (email/google/microsoft) in backend/InTimePro/src/InTimePro.Api/Services/AuthService.cs
+- [X] T043 Implement AuthController endpoints for Login, Refresh, and Logout in backend/InTimePro/src/InTimePro.Api/Controllers/AuthController.cs
+- [X] T044 Implement EmployeesController endpoint for basic employee details in backend/InTimePro/src/InTimePro.Api/Controllers/EmployeesController.cs
+- [X] T045 Configure Swagger and API startup wiring in backend/InTimePro/src/InTimePro.Api/Startup.cs and backend/InTimePro/src/InTimePro.Api/Program.cs
+- [X] T046 Validate build and runtime smoke test (`/swagger/docs/v1` returns 200)
+
 ## Dependencies
 
 **Story Completion Order**:
